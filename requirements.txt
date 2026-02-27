@@ -1,0 +1,16 @@
+crewai
+crewai_tools
+load_dotenv
+langchain-huggingface
+crewai
+langchain
+transformers
+torch
+huggingface_hub
+python-dotenv
+PyGithub
+streamlit
+faiss-cpu
+sentence-transformers
+langchain_community
+litellm
