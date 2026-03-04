@@ -12,8 +12,9 @@ venv/
 .env/
 .venv/
 
-# Streamlit secrets (local only)
+# Streamlit local data (machine ID, secrets)
 .streamlit/secrets.toml
+.streamlit/machine_id_v4
 
 # OS files
 .DS_Store

@@ -1,10 +1,18 @@
+import json, time, pathlib, traceback
 from crewai import Task, Crew
 from agents import create_agents
 from utils.llm_loader import load_llm
 
-def run_crew(repo_content, hf_api_key):
+_LOG = pathlib.Path(__file__).parent / "debug-005439.log"
 
-    llm = load_llm(hf_api_key)
+def _log(msg, data=None, hypothesis_id=""):
+    entry = {"sessionId":"005439","timestamp":int(time.time()*1000),"location":"crew.py","message":msg,"data":data or {},"hypothesisId":hypothesis_id}
+    with open(_LOG, "a") as f:
+        f.write(json.dumps(entry) + "\n")
+
+def run_crew(repo_content, hf_api_key, model_name="mistralai/Mistral-7B-Instruct-v0.2"):
+
+    llm, resolved_model = load_llm(hf_api_key, model_name=model_name)
 
     analyzer, writer = create_agents(llm)
 
@@ -48,7 +56,8 @@ def run_crew(repo_content, hf_api_key):
         - Conclusion
         """,
         expected_output="Complete readable blog article.",
-        agent=writer
+        agent=writer,
+        context=[analyze_task]
     )
 
     crew = Crew(
@@ -57,6 +66,31 @@ def run_crew(repo_content, hf_api_key):
         verbose=False
     )
 
-    result = crew.kickoff()
+    _log("crew.kickoff starting", {"requested_model": model_name, "resolved_model": resolved_model}, "H-A")
+    try:
+        result = crew.kickoff()
+    except Exception as exc:
+        full_trace = traceback.format_exc()
+        _log(
+            "crew.kickoff EXCEPTION",
+            {
+                "type": type(exc).__name__,
+                "msg": str(exc),
+                "trace_tail": full_trace[-2000:],
+                "hint": (
+                    "404 NotFoundError usually means the model is unavailable on "
+                    "this HuggingFace endpoint. Check debug-005439.log for probe results."
+                ) if "NotFoundError" in type(exc).__name__ or "404" in str(exc) else "",
+            },
+            "H-B",
+        )
+        raise
 
-    return result.raw
+    if not result.raw or not result.raw.strip():
+        raise ValueError(
+            "The AI crew returned an empty result. "
+            "The model may have timed out or failed to generate a response. "
+            "Please try again."
+        )
+
+    return result.raw, resolved_model
