@@ -21,7 +21,7 @@ RepoScribe AI uses:
 
 This project demonstrates how AI agents can collaborate to automate technical content generation from raw source code.
 
-Live App Link :- https://reposcribe-ai-yf2jhpvwscn7dsz6ksrchu.streamlit.app/
+Live App Link :- https://hzapzknjpumrsnpdypqjxv.streamlit.app/
 
 ---
 
