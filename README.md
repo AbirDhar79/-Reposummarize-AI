@@ -347,8 +347,6 @@ RepoScribe AI can:
 ---
 
 # 👨‍💻 Author
-
-Souvik Karmakar
-AI & Data Enthusiast
+ABIR DHAR
 Focused on building scalable AI systems
 
