@@ -344,9 +344,3 @@ RepoScribe AI can:
 * Improve developer productivity
 * Convert raw code into accessible knowledge
 
----
-
-# 👨‍💻 Author
-ABIR DHAR
-Focused on building scalable AI systems
-
