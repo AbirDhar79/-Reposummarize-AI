@@ -344,3 +344,12 @@ RepoScribe AI can:
 * Improve developer productivity
 * Convert raw code into accessible knowledge
 
+---
+
+# 👤 Author
+
+**Abir Dhar**
+
+* GitHub: [AbirDhar79](https://github.com/AbirDhar79)
+* Live App: [RepoScribe AI](https://hzapzknjpumrsnpdypqjxv.streamlit.app/)
+
